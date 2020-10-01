@@ -56,8 +56,8 @@ def displayBoard(missedLetters, correctLetters, secretWord):
     blanks = "_" * len(secretWord)
 
     for i in range(len(secretWord)): # changes skips for guessed letters
-    if secretWord[i] in correctLetters:
-        blanks = blanks[:i] + secretWord[i] + blanks[i+1:]
+        if secretWord[i] in correctLetters:
+            blanks = blanks[:i] + secretWord[i] + blanks[i+1:]
 
     for letter in blanks: # shows secret word with whitespaces between letters
         print(letter, end=' ')
@@ -73,7 +73,7 @@ def getGuess(alreadyGuessed):
             print("Just one letter, please!")
         elif guess in alreadyGuessed:
             print("You've alredy tried it. Enter another character, please!")
-        elif guees not in 'qwertyuiopasdfghjklzxcvbnm':
+        elif guess not in 'qwertyuiopasdfghjklzxcvbnm':
             print('Please, enter letter.')
         else:
             return guess
