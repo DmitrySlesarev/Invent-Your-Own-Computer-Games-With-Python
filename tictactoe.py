@@ -47,3 +47,46 @@ def isWinner(bo, le):
 		(bo[9] == le and bo[6] == le and bo[3] == le) or # accross the bottom right side
 		(bo[7] == le and bo[5] == le and bo[3] == le) or # diagonally
 		(bo[9] == le and bo[5] == le and bo[1] == le) or # diagonally
+
+def getBoardCopy(board):
+	# Creates a copy of play field and returns it.
+	boardCopy = []
+	for i in board:
+		boardCopy.append(i)
+		return boardCopy
+
+def isSpaceFree(board, move):
+	# Returns True, if the move is made to a free spot.
+	retrun board[move] == ' '
+
+def getPlayerMove(board):
+	# Permission to make a move.
+	move = ' '
+	while move not in '1 2 3 4 5 6 7 8 9'.split() or not isSpaceFree(board, int(move)):
+		print('Your next move. (1-9)')
+		move = input()
+	return int(move)
+
+def chooseRandomMoveFromList(board, moveList):
+	# Returns any allowed move, bearing in mind the list of moves made and cells filled in.
+	# Returns None, if there are no any allowed moves.
+	possibleMoves = []
+	for i in moveList:
+		if isSpaceFree(board, i):
+			possibleMoves.append(i)
+
+	if len(possibleMoves) != 0:
+		return random.choice(possibleMoves)
+	else:
+		return None
+
+def getComputerMove(board, computerLetter):
+	# Checks next allowed move and returns it.
+	if computeLetter == 'X':
+		playerLetter = 'O'
+	else:
+		playerLetter = 'X'
+
+	# This algorithm is for AI of tictactoe game:
+	# We check first if we win by the next move.
+			
