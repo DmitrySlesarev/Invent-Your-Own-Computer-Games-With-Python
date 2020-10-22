@@ -29,9 +29,9 @@ def inputPlayerLetter():
 def whoGoesFirst():
 	# The choice of who goes first.
 	if random.randint(0,1) == 0:
-		return 'Computer.'
+		return 'Computer'
 	else:
-		return 'Human.'
+		return 'Human'
 
 def makeMove(board, letter, move):
 	board[move] = letter
@@ -46,7 +46,7 @@ def isWinner(bo, le):
 		(bo[8] == le and bo[5] == le and bo[2] == le) or # accross the cener
 		(bo[9] == le and bo[6] == le and bo[3] == le) or # accross the bottom right side
 		(bo[7] == le and bo[5] == le and bo[3] == le) or # diagonally
-		(bo[9] == le and bo[5] == le and bo[1] == le) or # diagonally
+		(bo[9] == le and bo[5] == le and bo[1] == le)) # diagonally
 
 def getBoardCopy(board):
 	# Creates a copy of play field and returns it.
@@ -57,7 +57,7 @@ def getBoardCopy(board):
 
 def isSpaceFree(board, move):
 	# Returns True, if the move is made to a free spot.
-	retrun board[move] == ' '
+	return board[move] == ' '
 
 def getPlayerMove(board):
 	# Permission to make a move.
@@ -82,7 +82,7 @@ def chooseRandomMoveFromList(board, moveList):
 
 def getComputerMove(board, computerLetter):
 	# Checks next allowed move and returns it.
-	if computeLetter == 'X':
+	if computerLetter == 'X':
 		playerLetter = 'O'
 	else:
 		playerLetter = 'X'
@@ -101,7 +101,7 @@ def getComputerMove(board, computerLetter):
 		boardCopy = getBoardCopy(board)
 		if isSpaceFree(boardCopy, i):
 			makeMove(boardCopy, playerLetter, i)
-			if is Winner(boardCopy, playerLetter):
+			if isWinner(boardCopy, playerLetter):
 				return i
 
 	# Attempt to occupy one of the corners.
@@ -131,17 +131,17 @@ while True:
 	theBoard = [' '] * 10
 	playerLetter, computerLetter = inputPlayerLetter()
 	turn = whoGoesFirst()
-	print('' + turn ' moves first.')
+	print(turn + ' moves first.')
 	gameIsPlaying = True
 	
 	while gameIsPlaying:
-		if turn == 'Human.':
+		if turn == 'Human':
 			# Player moves.
 			drawBoard(theBoard)
 			move = getPlayerMove(theBoard)
 			makeMove(theBoard, playerLetter, move)
 
-			if is Winner(theBoard, playerLetter):
+			if isWinner(theBoard, playerLetter):
 				drawBoard(theBoard)
 				print('Hooray! You\'ve won!')
 				gameIsPlaying = False
@@ -151,7 +151,7 @@ while True:
 					print('Draw!')
 					break
 				else:
-					turn = 'Computer.'
+					turn = 'Computer'
 
 	else:
 		# Computer moves.
@@ -168,9 +168,10 @@ while True:
 				print('Draw!')
 				break
 			else:
-				turn = 'Human.'
+				turn = 'Human'
 
 	print('Let\' play again? Yes or No.')
 	if not input().lower().startwith('y'):
 		break
+
 
