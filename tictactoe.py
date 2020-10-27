@@ -53,10 +53,9 @@ def getBoardCopy(board):
 	boardCopy = []
 	for i in board:
 		boardCopy.append(i)
-		return boardCopy
+	return boardCopy
 
 def isSpaceFree(board, move):
-	# Returns True, if the move is made to a free spot.
 	return board[move] == ' '
 
 def getPlayerMove(board):
@@ -152,26 +151,22 @@ while True:
 					break
 				else:
 					turn = 'Computer'
-
-	else:
-		# Computer moves.
-		move = getComputerMove(theBoard, computerLetter)
-		makeMove(theBoard, computerLetter, move)
-
-		if isWinnder(theBoard, computerLetter):
-			drawBoard(theBoard)
-			print('Computer won! You lost.')
-			gameIsPlaying = False
 		else:
-			if isBoardFull(theBoard):
+			move = getComputerMove(theBoard, computerLetter)
+			makeMove(theBoard, computerLetter, move)
+			if isWinner(theBoard, computerLetter):
 				drawBoard(theBoard)
-				print('Draw!')
-				break
+				print('Computer won! You lost.')
+				gameIsPlaying = False
 			else:
-				turn = 'Human'
+				if isBoardFull(theBoard):
+					drawBoard(theBoard)
+					print('Draw!')
+					break
+				else:
+					turn = 'Human'
 
 	print('Let\' play again? Yes or No.')
-	if not input().lower().startwith('y'):
+	if not input().lower().startswith('y'):
 		break
-
 
