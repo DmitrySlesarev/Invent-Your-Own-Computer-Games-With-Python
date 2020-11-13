@@ -1,0 +1,174 @@
+ Last login: Tue Nov 10 12:14:07 on ttys000
+MacBook-Air-Dmitrij:~ dmitrijslesarev$ python3
+Python 3.8.3 (default, Jul  8 2020, 14:27:39) 
+[Clang 10.0.0 (clang-1000.11.45.5)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import random
+>>> num1 = list(range(1, 10))
+>>> num2 = [i for i in range(10) if i <= 10]
+>>> num3 = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> num1 == num2
+False
+>>> num1
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> num2
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> num2 = num3
+>>> num2 = [i for i in range(10) if i <= 10]
+>>> num2 == num3
+True
+>>> num2 is num3
+False
+>>> random.shuffle(num2)
+>>> num2
+[9, 4, 3, 1, 8, 6, 5, 7, 0, 2]
+>>> num2 == num3
+False
+>>> num2.sort() == num3
+False
+>>> num2.sort()
+>>> num2 == num3
+True
+>>> num2
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> num2 == num3
+True
+>>> random.shuffle(num3)
+>>> num3
+[1, 7, 3, 2, 9, 8, 0, 4, 5, 6]
+>>> num2 == num3.sort()
+False
+>>> num2 == num3
+True
+>>> num3
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> for i in num3:
+...     num3[i] = str(num3[i])
+... 
+>>> num3
+['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> ' & '.join(num3)
+'0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9'
+>>> import sqlite3
+>>> db = sqlite3.connect(":memory:new.db")
+>>> cur = db.cursor()
+>>> cur.execute("""CREATE TABLE one
+...             (_id INT PRIMARY KEY,
+...             time1 VARCHAR(10),
+...             time2 VARCHAR(10),
+...             time3 VARCHAR(10),
+...             summary TEXT)
+...             """)
+<sqlite3.Cursor object at 0x10597df80>
+>>> sql = 'INSERT INTO %s VALUES(?, ?, ?, ?, ?)'
+>>> dbase = ([1, 14, 15, 20, 'the first line'], [2, 14, 25, 22, 'the second line'], [3, 12, 12, 12, 'the third line'])
+>>> cur.execute(sql % 'one', dbase)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 5, and there are 3 supplied.
+>>> dbase = [(1, 14, 15, 20, 'the first line'), (2, 14, 25, 22, 'the second line'), (3, 12, 12, 12, 'the third line')]
+>>> cur.execute(sql % 'one', dbase)
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+sqlite3.ProgrammingError: Incorrect number of bindings supplied. The current statement uses 5, and there are 3 supplied.
+>>> dbase
+[(1, 14, 15, 20, 'the first line'), (2, 14, 25, 22, 'the second line'), (3, 12, 12, 12, 'the third line')]
+>>> cur.executemany(sql % 'one', dbase)
+<sqlite3.Cursor object at 0x10597df80>
+>>> db.commit()
+>>> cur.execute("""SELECT * FROM one""")
+<sqlite3.Cursor object at 0x10597df80>
+>>> ret = cur.fetchall()
+>>> ret
+[(1, '14', '15', '20', 'the first line'), (2, '14', '25', '22', 'the second line'), (3, '12', '12', '12', 'the third line')]
+>>> ret
+[(1, '14', '15', '20', 'the first line'), (2, '14', '25', '22', 'the second line'), (3, '12', '12', '12', 'the third line')]
+>>> num
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'num' is not defined
+>>> num
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+NameError: name 'num' is not defined
+>>> num1
+[1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> a = tuple(range(0, 10))
+>>> a
+(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+>>> for i in a:
+...     a[i] = str(a[i])
+... 
+Traceback (most recent call last):
+  File "<stdin>", line 2, in <module>
+TypeError: 'tuple' object does not support item assignment
+>>> a
+(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+>>> list(a)
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> a
+(0, 1, 2, 3, 4, 5, 6, 7, 8, 9)
+>>> a = list(a)
+>>> a
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+>>> for i in a:
+...     a[i] = str(a[i])
+... 
+>>> i
+9
+>>> a
+['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> i
+9
+>>> i
+9
+>>> a
+['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> a.split()
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+AttributeError: 'list' object has no attribute 'split'
+>>> 'Dmitry'.split()
+['Dmitry']
+>>> 'Some questions about this issue'.split()
+['Some', 'questions', 'about', 'this', 'issue']
+>>> '0 1 2 3 4 5 6 7 8 9'.split()
+['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> a = '0 1 2 3 4 5 6 7 8 9'.split()
+>>> a
+['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> a = list('0 1 2 3 4 5 6 7 8 9'.split())
+>>> a
+['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> type(a)
+<class 'list'>
+>>> list(a)
+['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> id(a)
+4389605056
+>>> list(a)
+['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
+>>> id(a)
+4389605056
+>>> # There are 3 kinds of string formatting
+>>> # Using '%' operators
+>>> print("Hello %s" % 'world!')
+Hello world!
+>>> print("Five is %i" % 10)
+Five is 10
+>>> print("Hello %r" % 'anything can come')
+Hello 'anything can come'
+>>> # The second way is by using .format() method
+>>> print("New line []".format('cinema'))
+New line []
+>>> print("New line {}".format('cinema'))
+New line cinema
+>>> print("New line {1} {0}.".format('presents', 'cinema'))
+New line cinema presents.
+>>> # Interpolation
+>>> a = f"added!"
+>>> print("This string should be {a}")
+This string should be {a}
+>>> a = "added!"
+>>> print(f"This string should be {a}")
+This string should be added!
