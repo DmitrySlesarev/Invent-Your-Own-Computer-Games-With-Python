@@ -69,4 +69,54 @@ def getRandomChests(numChests):
 			for cx, cy in chests:
 				distance = math.sqrt((cx-x)*(cx-x) + (cy-y)*(cy-y))
 
+if distance < smallestDistance: # We need the nearest chest.
+	smallestDistance = distance
+
+	smallestDistance = round(smallestDistance)
+# XY belongs to the chest of treasures.
+	chest.remove([x, y])
+return 'You\'ve found chest with treasures.'
+	else:
+		if smallestDistance < 10:
+			board[x][y] = str(smallestDistance)
+return 'Chest with treasures can be seen at a distance of %s from the sonar' % (smallestDistance)
+	else:
+		board[x][y] = 'X'
+return 'Sonar has found nothing. All the chests with treasures are not reachable now.'
+
+def enterPlayerMove(previousMoves):
+	# Allow Player to make a a move. Return list of 2 elements with x and y coordinates.
+	print("Where should we put the sonar? Coordinates: 0-59 0-14. Or exit.)")
+	while True:
+		move = input()
+		if move.lower() == 'exit':
+			print('Thanks for the game!')
+			sys.exit()
+
+		move = move.split()
+if len(move) == 2 and move[0].isdigit() and move[1].isdigit() and isOnBoard(int(move[0]), int(move[1])):
+		if [int(move[0]), int(move[1])] in previousMoves:
+			print("You've already put the sonar here.")
+				continue
+
+			print('Enter number from 0 to 59, then space, and then the number from 0 to 14.')
+
+def showInstructions():
+	print('''Instructions
+You're a captain of the ship. Your purpose is to find
+treasures using sonars.
+But sonars are very simple andcan detect just the distance,
+but not the direction.
+Enter coordinates so that to put sonar into water. The
+map will show number, where the chest is . Or
+a letter 'X' will be shown, which means that there are no
+chests in locator's vision area.
+May with 'C' - chests.
+
+Press 'Enter' to proceed.
+''')
+	input()
+
+	print()
+
 					
