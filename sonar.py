@@ -117,6 +117,48 @@ Press 'Enter' to proceed.
 ''')
 	input()
 
-	print()
+	print('''If the sonar put right on the chest, you'll be able to lift it.
+The other sonars will re-new data about the nearest chest, too.
+The chests below are out of sonar's area, that's why 'X' gets displayed.
 
-					
+Press 'Enter' to proceed.''')
+	input()
+
+print('Treasures hunter!')
+print()
+print('Show instructins? Y or N')
+if input().lower().startswith('y'):
+	showInstructions()
+
+while True:
+	# Adust the game
+	sonarDevices = 20
+	theBoard = getNewBoard()
+	theChests = getRandomChests(3)
+	drawBoard(theBoard)
+	previousMoves = []
+
+	while sonarDevices > 0:
+# Show sonars and chests.
+print('The remainder of sonars: %s. The remainder of chests:%s' % (sonarDevices, len(theChests)))
+
+	x, y = enterPlayerMove(previousMoves)
+previousMoves.append([x, y]) # We must follow all the moves, so that all the sonars get renewed.
+
+moveResult = makeMove(theBoard, the Chests, x, y)
+	if moveResult == False:
+		continue
+	else:
+		if moveResult == 'You\'ve found the chest!':
+			# Re-new all the sonars which are on the map.
+			for x, y in previousMoves:
+				makeMove(theBoard, theChests, x, y)
+			drawBoard(theBoard)
+			print(moveResult)
+
+		if len(theChests) == 0:
+			
+
+
+
+
