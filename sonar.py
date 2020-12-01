@@ -5,32 +5,32 @@ import sys
 import math
 
 def getNewBoard():
-	# creating data structure for the field of 60x15.
+	# Create a new 60x15 board data structure.
 	board = []
 	for x in range(60): # The main list, which contains of 60 lists.
 		board.append([])
-	for y in range(15): # Each list contains 15 single-variable line.
-	# Let's make the ocean various, so that to make it real.
-		if random.randint(0, 1) == 0:
-			board[x].append('^')
-		else:
-			board[x].append('\'')
+		for y in range(15): # Each list contains 15 single-variable line.
+	 		# Use different characters for the ocean to make it more readable.
+			if random.randint(0, 1) == 0:
+				board[x].append('^')
+			else:
+				board[x].append('\'')
 	return board
 
 def drawBoard(board):
-	# Represent data structure of play field.
+	# Draw the board data structure.
 	tensDigitsLine = ' ' # Create place for numbers down the left side of the playfield.
 	for i in range(1, 6):
 		tensDigitsLine += (' ' * 9) + str(i)
 
-	# Reflect the numbers in the upper part of play field.
+	# Print the numbers across the top of the board.
 	print(tensDigitsLine)
 	print(' ' + ('0123456789' * 6))
 	print()
 
-	# Display each of 15 rows.
+	# Print each of the 15 rows.
 	for row in range(15):
-	# A space should be added to each single-character number.
+		# A space should be added to each single-character number.
 		if row < 10:
 			extraSpace = " "
 		else:
@@ -41,7 +41,7 @@ def drawBoard(board):
 		for column in range(60):
 			boardRow +=board[column][row]
 
-print('%s%s %s %s' % (extraSpace, row, boardRow, row))
+		print('%s%s %s %s' % (extraSpace, row, boardRow, row))
 
 	# Display numbers in the in the bottom.
 	print()
@@ -50,16 +50,16 @@ print('%s%s %s %s' % (extraSpace, row, boardRow, row))
 
 def getRandomChests(numChests):
 	# Create list of data structures.
-		chests = []
-		while len(chests) < numChests:
-			newChest = [random.randint(0, 59), random.randint(0, 14)]
-	if newChest not in chests: # Make sure, that the chest is not here.
+	chests = []
+	while len(chests) < numChests:
+		newChest = [random.randint(0, 59), random.randint(0, 14)]
+		if newChest not in chests: # Make sure, that the chest is not here.
 			chests.append(newChest)
-		return chests
+	return chests
 
 	def isOnBoard(x, y):
 		# Returns True, if x and y are present on the field. Otherwise, False.
-			return x >= 0 and x <= 59 and y >= 0 and y <=14 
+		return x >= 0 and x <= 59 and y >= 0 and y <=14 
 
 		def makeMove(board, chests, x, y):
 			# Change data structure, using sonar symbol. Delete chests,
@@ -69,20 +69,22 @@ def getRandomChests(numChests):
 			for cx, cy in chests:
 				distance = math.sqrt((cx-x)*(cx-x) + (cy-y)*(cy-y))
 
-if distance < smallestDistance: # We need the nearest chest.
-	smallestDistance = distance
+			if distance < smallestDistance: # We need the nearest chest.
+				smallestDistance = distance
 
 	smallestDistance = round(smallestDistance)
-# XY belongs to the chest of treasures.
-	chest.remove([x, y])
-return 'You\'ve found chest with treasures.'
+
+	if smallestDistance == 0:
+		# xy is directly on a treasure chest!
+		chest.remove([x, y])
+		return 'You\'ve found chest with treasures.'
 	else:
 		if smallestDistance < 10:
 			board[x][y] = str(smallestDistance)
-return 'Chest with treasures can be seen at a distance of %s from the sonar' % (smallestDistance)
-	else:
-		board[x][y] = 'X'
-return 'Sonar has found nothing. All the chests with treasures are not reachable now.'
+			return 'Chest with treasures can be seen at a distance of %s from the sonar' % (smallestDistance)
+		else:
+			board[x][y] = 'X'
+			return 'Sonar has found nothing. All the chests with treasures are not reachable now.'
 
 def enterPlayerMove(previousMoves):
 	# Allow Player to make a a move. Return list of 2 elements with x and y coordinates.
@@ -94,11 +96,10 @@ def enterPlayerMove(previousMoves):
 			sys.exit()
 
 		move = move.split()
-if len(move) == 2 and move[0].isdigit() and move[1].isdigit() and isOnBoard(int(move[0]), int(move[1])):
-		if [int(move[0]), int(move[1])] in previousMoves:
-			print("You've already put the sonar here.")
+		if len(move) == 2 and move[0].isdigit() and move[1].isdigit() and isOnBoard(int(move[0]), int(move[1])):
+			if [int(move[0]), int(move[1])] in previousMoves:
+				print("You've already put the sonar here.")
 				continue
-
 			print('Enter number from 0 to 59, then space, and then the number from 0 to 14.')
 
 def showInstructions():
@@ -124,14 +125,14 @@ The chests below are out of sonar's area, that's why 'X' gets displayed.
 Press 'Enter' to proceed.''')
 	input()
 
-print('Treasures hunter!')
+print('S O N A R!')
 print()
 print('Show instructins? Y or N')
 if input().lower().startswith('y'):
 	showInstructions()
 
 while True:
-	# Adust the game
+	# Game setup
 	sonarDevices = 20
 	theBoard = getNewBoard()
 	theChests = getRandomChests(3)
@@ -139,25 +140,41 @@ while True:
 	previousMoves = []
 
 	while sonarDevices > 0:
-# Show sonars and chests.
-print('The remainder of sonars: %s. The remainder of chests:%s' % (sonarDevices, len(theChests)))
+		# Show sonars and chests.
+		print('The remainder of sonars: %s. The remainder of chests:%s' % (sonarDevices, len(theChests)))
 
-	x, y = enterPlayerMove(previousMoves)
-previousMoves.append([x, y]) # We must follow all the moves, so that all the sonars get renewed.
+		x, y = enterPlayerMove(previousMoves)
+		previousMoves.append([x, y]) # We must follow all the moves, so that all the sonars get renewed.
 
-moveResult = makeMove(theBoard, the Chests, x, y)
-	if moveResult == False:
-		continue
-	else:
-		if moveResult == 'You\'ve found the chest!':
-			# Re-new all the sonars which are on the map.
-			for x, y in previousMoves:
-				makeMove(theBoard, theChests, x, y)
+		moveResult = makeMove(theBoard, the Chests, x, y)
+		if moveResult == False:
+			continue
+		else:
+			if moveResult == 'You\'ve found the chest!':
+				# Re-new all the sonars which are on the map.
+				for x, y in previousMoves:
+					makeMove(theBoard, theChests, x, y)
 			drawBoard(theBoard)
 			print(moveResult)
 
 		if len(theChests) == 0:
-			
+			print('You have found all the sunken treasure chests! Congratulations and good game!')
+			break
+
+		sonarDevices -= 1
+
+	if sonarDevices == 0:
+			print('We\'ve run out of sonar devices! Now we have to turn the ship around and head.')
+			print('for home with treasure chests still out there! Game over.')
+			print('		The remaining chests were here:')
+			for x, y in the Chests:
+				print('		%s, %s' % (x, y))
+
+		print('Do you want to play again? Yes or No')
+		if not input().lower().startswith('y'):
+			sys.exit()
+
+
 
 
 
