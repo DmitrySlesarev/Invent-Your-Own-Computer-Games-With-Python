@@ -4,12 +4,12 @@ MAX_KEY_SIZe = len(SYMBOLS)
 
 def getMode():
 		while True:
-				print("You want to encrypt or decrypt your text?")
+				print("You want to encrypt, decrypt or hack your text?")
 				mode = input().lower()
-				if mode in ['encrypt', 'e', 'decrypt', 'p']:
+				if mode in ['encrypt', 'e', 'decrypt', 'hack', 'h']:
 					return mode
 				else:
-					print("Enter 'encrypt' or 'decrypt' accordingly.")
+					print("Enter 'encrypt', 'decrypt' or 'hack' accordingly.")
 
 def getMessage():
 	print('Input text:')
@@ -47,6 +47,11 @@ def getTranslatedMessage(mode, message, key):
 
 mode = getMode()
 message = getMessage()
-key = getKey()
+if mode[0] != 'h':
+	key = getKey()
 print("Encrypted text:")
-print(getTranslatedMessage(mode, message, key))
+if mode[0] != 'h':
+	print(getTranslatedMessage(mode, message, key))
+else:
+	for key in range(1, MAX_KEY_SIZE + 1):
+		print(key, getTranslatedMessage('encrypt'), message, key)
