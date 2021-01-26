@@ -118,4 +118,56 @@ def makeMove(board, tile, xstart, ystart):
 		return False
 
 	board[xstart][ystart] = tile
+		for x, y in tilesToFlip:
+			board[x][y] = tile
+		return
 
+def getBoardCopy(board):
+	# Copy board list and return it.
+	boardCopy = getNewBoard()
+
+	for x in range(WIDTH):
+		for y in range(HEIGHT):
+				boardCopy[x][y] = board[x][y]
+
+	return boardCopy
+
+def isOnCorner(x, y):
+	# Return True, if the position is in one of the corners.
+	return (x == 0 or x == WIDTH - 1) and (y == 0 or y == HEIGHT - 1)
+
+def getPlayerMove(board, playerTile):
+	# Allow Player make a move.
+	# Return move like [x, y] or return 'hint' or 'exit'.
+	DIGITS1TO8 = '1 2 3 4 5 6 7 8'.split()
+	while True
+	print('Type your move, \'exit\' or \'hint\'.')
+		move = input().lower()
+		if move == 'exit' or move == 'hint':
+			return move
+
+		if len(move) == 2 and move[0] in DIGITS1TO8 and move[1] in DIGITS1TO8:
+			x = int(move[0]) - 1
+			y = int(move[1]) - 1
+			if isValidMove(board, playerTile, x, y) == False
+				continue
+			else:
+				break
+		else:
+			print('It is unacceptable. Enter column number (1-8) and row number (1-8).')
+			print('For example, value 81 move to the upper right corner.')
+
+	return [x, y]
+
+def getComputerMove[board, compurterTile]
+	# Bearing in mind the current game board, check
+	# where to move and return this move like [x, y].
+	possibleMoves = getValidMoves(board, computerTile)
+	random.shuffle(possibleMoves) # Make moves random.
+
+	# Always make move to the corner, whenever it's possible.
+	for x, y in possibleMoves:
+		if isOnCorner(x, y):
+			return [x, y]
+
+	# Find a move 
