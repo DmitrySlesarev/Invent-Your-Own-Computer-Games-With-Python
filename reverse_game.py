@@ -159,7 +159,7 @@ def getPlayerMove(board, playerTile):
 
 	return [x, y]
 
-def getComputerMove[board, compurterTile]
+def getComputerMove[board, computerTile]
 	# Bearing in mind the current game board, check
 	# where to move and return this move like [x, y].
 	possibleMoves = getValidMoves(board, computerTile)
@@ -170,4 +170,78 @@ def getComputerMove[board, compurterTile]
 		if isOnCorner(x, y):
 			return [x, y]
 
-	# Find a move 
+	# Find a move with the most possible amount of points.
+	bestScore = -1
+	for x, y in possibleMoves:
+		boardCopy = getBoardCopy(board)
+		makeMove(boardCopy, computerTile, x, y)
+		score = getScoreOfBoard(boardCopy)[computerTile]
+		if score > bestScore:
+			bestMove = [x, y]
+			bestScore = score
+	return bestMove
+
+def printScore(board, playerTile, computerTile):
+	scores = getScoreOfBoard(board)
+	print('Your score: %s. CPU score: %s.' % (scores[playerTile], scores[computerTile]))
+
+def playGame(playerTile, computerTile):
+	showHints = False
+	turn = whoGoesFirst()
+	print(turn + ' moves first.')
+
+	# Clean game board and put initial tiles.
+	board = getNewBoard()
+	board[3][3] = 'X'
+	board[3][4] = 'O'
+	board[4][3] = 'O'
+	board[4][4] = 'X'
+
+	while True:
+		playerValidMoves = getValidMoves(board, playerTile)
+		computerValidMoves = getValidMoves(board, computerTile)
+
+		if playerValidMoves = [] and computerValidMoves == []:
+			return board # No more moves, game over.
+
+		elif turn == 'Human': # Human's move.
+			if playerValidMoves != []:
+				if showHints:
+					validMovesBoard = getValidMoves(board, playerTile)
+					drawBoard(validMovesBoard)
+				else:
+					drawBoard(board)
+				printScore(board, playerTile, computerTile)
+
+				move = getPlayerMove(board, playerTile)
+				if move == 'exit':
+					print('Thank you for the game.')
+					sys.exit() # End the game.
+				elif move == 'hint':
+					showHints = not showHints
+					continue
+				else:
+					makeMove(board, playerTile, move[0], move[1])
+				turn = 'Computer'
+
+			elif turn == 'Computer': # Computer's move.
+				if computerValidMoves != []:
+					drawBoard(board)
+					printScore(board, playerTile, computerTile)
+
+					input('Press Enter to see Computres\' move.')
+					move = getComputerMove(board, computerTile)
+					makeMove(board, computerTile, move[0], move[1])
+				turn = 'Human'
+
+
+
+			print('Greetings!')
+
+			playerTile, computerTile = enterPlayerTile()
+
+			while True:
+				finalBoard = playGame(playerTile, computreTile)
+
+				# Show the score.
+
