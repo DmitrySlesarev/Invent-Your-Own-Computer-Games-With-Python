@@ -236,12 +236,26 @@ def playGame(playerTile, computerTile):
 
 
 
-			print('Greetings!')
+print('Greetings!')
 
-			playerTile, computerTile = enterPlayerTile()
+playerTile, computerTile = enterPlayerTile()
 
-			while True:
-				finalBoard = playGame(playerTile, computreTile)
+while True:
+	finalBoard = playGame(playerTile, computreTile)
 
-				# Show the score.
+	# Show the score.
+	drawBoard(finalBoard)
+	print('X got %s points. O got %s points.' % (scores['X'], scores['O']))
+	if scores[playerTile] > scores[computerTile]:
+		print('You won the computer, the gap is  %s points. Congrats!' % (scores[playerTile] - scores[computerTile]))
+	elif scores[playerTile] < scores[computerTile]:
+		print('You\'ve lost. The gap is %s points.' % (scores[computerTile] - scores[playerTile]))
+	else:
+		print('Draw!')
+
+				
+	print('You want to play again? Yes or No.')
+	if not input().lower().startswith('y'):
+		break
+
 
