@@ -16,13 +16,13 @@ GREEN = (0, 255, 0)
 BLUE = (0, 0, 255)
 
 # Assign fonts.
-basicFont = pygame.font.sysFont(None, 48)
+basicFont = pygame.font.SysFont(None, 48)
 
 # Adjust text.
 text = basicFont.render('Hello, World!', True, WHITE, BLUE)
 textRect = text.get_rect()
-textRect.centrex = windowSurface.get_rect().centrex
-textRect.ecntrey = windowSurface.get_rect().centery
+textRect.centerx = windowSurface.get_rect().centerx
+textRect.centery = windowSurface.get_rect().centery
 
 # Make background color white.
 windowSurface.fill(WHITE)
@@ -45,7 +45,7 @@ pygame.draw.ellipse(windowSurface, RED, (300, 250, 40, 80), 1)
 pygame.draw.rect(windowSurface, RED, (textRect.left-20, textRect.top-20, textRect.width+40, textRect.height+40))
 
 # Get surface of pixels.
-pixArreay = pygame.PixelArray(windowSurface)
+pixArray = pygame.PixelArray(windowSurface)
 pixArray[480][380] = BLACK
 del pixArray
 
