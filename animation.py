@@ -34,7 +34,7 @@ boxes = [b1, b2, b3]
 while True:
 	# Check of QUIT event.
 	for event in pygame.event.get():
-		if event.type = QUIT:
+		if event.type == QUIT:
 			pygame.quit()
 			sys.exit()
 
@@ -57,33 +57,33 @@ while True:
 			b['rect'].top -= MOVESPEED
 
 	# Check if the block touches window border.
-	if b['rect'].top < 0:
-		# Upper border.
-		if b['dir'] == UPLEFT:
-			b['dir'] = DOWNLEFT
-		if b['dir'] == UPRIGHT:
-			b['dir'] = DOWNRIGHT
-	if b['rect'].bottom > WINDOWHEIGHT:
-		# Lower border.
-		if b['dir'] == DOWNLEFT:
-			b['dir'] == UPLEFT
-		if b['dir'] == DOWNRIGHT:
-			b['dir'] = UPRIGHT
-	if b['rect'].left < 0:
-		# Left border.
-		if b['dir'] == DOWNLEFT:
-			b['dir'] = DOWNRIGHT
-		if b['dir'] == UPLEFT:
-			b['dir'] = UPRIGHT
-	if b['rect'].right > WINDOWWIDTH:
-		# Right border.
-		if b['dir'] == DOWNRIGHT:
-			b['dir'] = DOWNLEFT
-		if b['dir'] == UPRIGHT:
-			b['dir'] = UPLEFT
+		if b['rect'].top < 0:
+			# Upper border.
+			if b['dir'] == UPLEFT:
+				b['dir'] = DOWNLEFT
+			if b['dir'] == UPRIGHT:
+				b['dir'] = DOWNRIGHT
+		if b['rect'].bottom > WINDOWHEIGHT:
+			# Lower border.
+			if b['dir'] == DOWNLEFT:
+				b['dir'] == UPLEFT
+			if b['dir'] == DOWNRIGHT:
+				b['dir'] = UPRIGHT
+		if b['rect'].left < 0:
+			# Left border.
+			if b['dir'] == DOWNLEFT:
+				b['dir'] = DOWNRIGHT
+			if b['dir'] == UPLEFT:
+				b['dir'] = UPRIGHT
+		if b['rect'].right > WINDOWWIDTH:
+			# Right border.
+			if b['dir'] == DOWNRIGHT:
+				b['dir'] = DOWNLEFT
+			if b['dir'] == UPRIGHT:
+				b['dir'] = UPLEFT
 
-	# Create block on the surface.
-	pygame.draw.rect(windowSurface, b['color'], b['rect'])
+		# Create block on the surface.
+		pygame.draw.rect(windowSurface, b['color'], b['rect'])
 
 	# Display.
 	pygame.display.update()
